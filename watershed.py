@@ -7,8 +7,9 @@ def getRegionalMinima(img):
     out = np.zeros(img.shape, np.int32)
     for i in range(h):
         for j in range(w):
+            # Get the minimal neighbor's location
             loc = findMinNeighborLocation(i, j, img)
-            if img[i][j] < img[loc[0]][loc[1]]:
+            if img[i][j] <= img[loc[0]][loc[1]]:
                 out[i][j] = 1
     val = 1
     for m in range(h):
@@ -28,7 +29,6 @@ def iterativeMinFollowing(img, markers):
             if label[m][n] != 0:
                 count -= 1
     while count > 0:
-        print count
         for i in range(h):
             for j in range(w):
                 if label[i][j] == 0:
@@ -104,5 +104,5 @@ def findMinNeighborLocation(i, j, img):
     MIN = min(neighborPixel.values())
     for k in neighborPixel:
         if neighborPixel[k] == MIN:
-            neighborPixel.clear()
+            #neighborPixel.clear()
             return k
