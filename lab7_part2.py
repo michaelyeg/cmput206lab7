@@ -68,12 +68,13 @@ plt.show()
 
 # cv2.RETR_CCOMP or RETR_FLOODFILL supports 32-bit integer image.
 # CHAIN_APPROX_NONE stores all contour points.
-contours, hierarchy = cv2.findContours(markers, cv2.RETR_FLOODFILL, cv2.CHAIN_APPROX_NONE)
+contours, hierarchy = cv2.findContours(labels, cv2.RETR_FLOODFILL, cv2.CHAIN_APPROX_NONE)
+contours_new = []
 for cnt in contours:
     area = cv2.contourArea(cnt)
-    if not (10 <= area <= 50):
-        cnt = []
-cv2.drawContours(img_gs, contours, contourIdx=-10, color=(0,0,225), thickness=4)
+    if 10 <= area <= 50:
+        contours_new.append(cnt)
+cv2.drawContours(img_gs, contours_new, contourIdx=-1, color=(225,0,0))
 plt.imshow(img_gs)
 plt.title('Pruned Contours')
 plt.show()
